@@ -56,13 +56,13 @@
 
       function ToggleConnectionClicked() {
             if (SocketCreated && (ws.readyState == 0 || ws.readyState == 1)) {
-                lockOn("Àë¿ªÁÄÌìÊÒ...");  
+                lockOn("ç¦»å¼€èŠå¤©å®¤...");  
                 SocketCreated = false;
                 isUserloggedout = true;
                 ws.close();
             } else {
-                lockOn("½øÈëÁÄÌìÊÒ...");  
-                Log("×¼±¸Á¬½Óµ½ÁÄÌì·şÎñÆ÷ ...");
+                lockOn("è¿›å…¥èŠå¤©å®¤...");  
+                Log("å‡†å¤‡è¿æ¥åˆ°èŠå¤©æœåŠ¡å™¨ ...");
                 try {
                     if ("WebSocket" in window) {
                     	ws = new WebSocket("ws://" + document.getElementById("Connection").value);
@@ -77,7 +77,7 @@
                     Log(ex, "ERROR");
                     return;
                 }
-                document.getElementById("ToggleConnection").innerHTML = "¶Ï¿ª";
+                document.getElementById("ToggleConnection").innerHTML = "æ–­å¼€";
                 ws.onopen = WSonOpen;
                 ws.onmessage = WSonMessage;
                 ws.onclose = WSonClose;
@@ -88,7 +88,7 @@
 
         function WSonOpen() {
             lockOff();
-            Log("Á¬½ÓÒÑ¾­½¨Á¢¡£", "OK");
+            Log("è¿æ¥å·²ç»å»ºç«‹ã€‚", "OK");
             $("#SendDataContainer").show();
    			    ws.send("login:" + document.getElementById("txtName").value);
         };
@@ -100,20 +100,20 @@
         function WSonClose() {
             lockOff();
             if (isUserloggedout)
-                Log("¡¾"+document.getElementById("txtName").value+"¡¿Àë¿ªÁËÁÄÌìÊÒ£¡");
-            document.getElementById("ToggleConnection").innerHTML = "Á¬½Ó";
+                Log("ã€"+document.getElementById("txtName").value+"ã€‘ç¦»å¼€äº†èŠå¤©å®¤ï¼");
+            document.getElementById("ToggleConnection").innerHTML = "è¿æ¥";
             $("#SendDataContainer").hide();
         };
 
         function WSonError() {
             lockOff();
-            Log("Ô¶³ÌÁ¬½ÓÖĞ¶Ï¡£", "ERROR");
+            Log("è¿œç¨‹è¿æ¥ä¸­æ–­ã€‚", "ERROR");
         };
 
 
         function SendDataClicked() {
             if (document.getElementById("DataToSend").value.trim() != "") {
-                ws.send(document.getElementById("txtName").value + "Ëµ :\"" + document.getElementById("DataToSend").value + "\"");
+                ws.send(document.getElementById("txtName").value + "è¯´ :\"" + document.getElementById("DataToSend").value + "\"");
                 document.getElementById("DataToSend").value = "";
             }
         };
@@ -145,10 +145,10 @@
             }
 
             if (WebSocketsExist) {
-                Log("ÄúµÄä¯ÀÀÆ÷Ö§³ÖWebSocket. Äú¿ÉÒÔ³¢ÊÔÁ¬½Óµ½ÁÄÌì·şÎñÆ÷!", "OK");
+                Log("æ‚¨çš„æµè§ˆå™¨æ”¯æŒWebSocket. æ‚¨å¯ä»¥å°è¯•è¿æ¥åˆ°èŠå¤©æœåŠ¡å™¨!", "OK");
                 document.getElementById("Connection").value = "9.119.135.127:4141/chat";
             } else {
-                Log("ÄúµÄä¯ÀÀÆ÷²»Ö§³ÖWebSocket¡£ÇëÑ¡ÔñÆäËûµÄä¯ÀÀÆ÷ÔÙ³¢ÊÔÁ¬½Ó·şÎñÆ÷¡£", "ERROR");
+                Log("æ‚¨çš„æµè§ˆå™¨ä¸æ”¯æŒWebSocketã€‚è¯·é€‰æ‹©å…¶ä»–çš„æµè§ˆå™¨å†å°è¯•è¿æ¥æœåŠ¡å™¨ã€‚", "ERROR");
                 document.getElementById("ToggleConnection").disabled = true;
             }    
             
@@ -167,20 +167,20 @@
 <body>
     <div id="skm_LockPane" class="LockOff"></div>
     <form id="form1" runat="server">
-        <h1>Web Socket ÁÄÌìÊÒ</h1>
+        <h1>Web Socket èŠå¤©å®¤</h1>
         <br />
         <div>
-            °´ÏÂÁ¬½Ó°´Å¥£¬»áÍ¨¹ıWebSocket·¢ÆğÒ»¸öµ½ÁÄÌìä¯ÀÀÆ÷µÄÁ¬½Ó¡£
+            æŒ‰ä¸‹è¿æ¥æŒ‰é’®ï¼Œä¼šé€šè¿‡WebSocketå‘èµ·ä¸€ä¸ªåˆ°èŠå¤©æµè§ˆå™¨çš„è¿æ¥ã€‚
         </div>
-        ·şÎñÆ÷µØÖ·: <input type="text" id="Connection" /> ÓÃ»§Ãû£º <input type="text" id="txtName" value="»ÆÏş°²"/>
-        <button id='ToggleConnection' type="button" onclick='ToggleConnectionClicked();'>Á¬½Ó</button>
+        æœåŠ¡å™¨åœ°å€: <input type="text" id="Connection" /> ç”¨æˆ·åï¼š <input type="text" id="txtName" value="é»„æ™“å®‰"/>
+        <button id='ToggleConnection' type="button" onclick='ToggleConnectionClicked();'>è¿æ¥</button>
         <br />
         <br />
         <div id='LogContainer' class='container'></div>
         <br />
         <div id='SendDataContainer'>
         <input type="text" id="DataToSend" size="88" />
-        <button id='SendData' type="button" onclick='SendDataClicked();'>·¢ËÍ</button>
+        <button id='SendData' type="button" onclick='SendDataClicked();'>å‘é€</button>
         </div>
         <br />
     </form>
