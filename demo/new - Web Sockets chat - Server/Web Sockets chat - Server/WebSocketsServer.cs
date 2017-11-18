@@ -124,7 +124,6 @@ namespace WebSocketServer
 
             foreach (IPAddress ip in ipEntry.AddressList)
             {
-                //IPV4
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                     return ip;
             }
@@ -166,6 +165,7 @@ namespace WebSocketServer
             }
         }
 
+        /* 断开连接 */
         void socketConn_Disconnected(Object sender, EventArgs e)
         {
             SocketConnection sConn = sender as SocketConnection;
@@ -177,6 +177,7 @@ namespace WebSocketServer
             }
         }
 
+        /* 建立连接 */
         void socketConn_BroadcastMessage(Object sender, string message, EventArgs e)
         {
             if (message.IndexOf("login:") != -1)
@@ -188,6 +189,7 @@ namespace WebSocketServer
             Send(message);
         }
 
+        
         void socketConn_NewConnection(string name, EventArgs e)
         {
             if (NewConnection != null)
